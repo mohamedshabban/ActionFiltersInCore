@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ActionFiltersInCore.Controllers
 {
+    /// <summary>
+    /// 2-Controller filter
+    /// </summary>
+    //[TypeFilter(typeof(LogActionFilter))]
     [ApiController]
     [Route("weather/api")]
     public class WeatherForecastController : ControllerBase
@@ -19,17 +23,18 @@ namespace ActionFiltersInCore.Controllers
             _logger = logger;
         }
         /// <summary>
+        /// 1-Action filter
         /// This will cause the LogActionFilter to be executed before and after the Index method is called.
         /// </summary>
         /// <returns></returns>
         [LogActionFilter]
         [HttpGet("Index")]
-        public IActionResult Index() 
+        public IActionResult Index()
         {
             return Ok();
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet("GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
